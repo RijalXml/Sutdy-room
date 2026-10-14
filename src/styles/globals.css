@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* =============================================================================
+   Design tokens — StudyRoom
+   Lihat /mnt/skills/public/frontend-design (ringkasan): warna sudah ditentukan
+   oleh brief (Midnight Navy / Electric Cyan / Neon Indigo), jadi token di bawah
+   mengikuti itu persis alih-alih memakai default template.
+   ============================================================================= */
+@theme {
+  --color-navy-950: #0b1220; /* latar utama */
+  --color-navy-900: #111c2b; /* permukaan / kartu */
+  --color-navy-800: #16202f; /* hover / permukaan sedikit terangkat */
+  --color-cyan: #22d3ee; /* aksen utama — dipakai selektif, bukan di semua elemen */
+  --color-cyan-dim: #0e7490;
+  --color-ink: #eaf2f7; /* teks utama */
+  --color-muted: #9aaab8; /* teks sekunder */
+  --color-border: #263647; /* garis tipis */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #fb7185;
+
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Warna aksen bisa ditimpa per kelas lewat Admin Settings (lihat
+   AdminSettingsPage + hooks/useAccentColor.ts), dengan #22D3EE sebagai default. */
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-navy-950);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Fokus keyboard yang konsisten & terlihat jelas di semua elemen interaktif */
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-cyan) 35%, transparent);
+}
+
+/* Hormati preferensi reduced motion milik pengguna di seluruh aplikasi */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: toast-in 180ms ease-out;
+}
+
+/* Scrollbar tipis, konsisten dengan tema gelap (kosmetik, aman di-skip oleh browser lain) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-navy-800) transparent;
+}
